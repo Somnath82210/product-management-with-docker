@@ -1,62 +1,4 @@
 services:
-  frontend:
-    image: node:18-alpine
-    container_name: frontend
-    command: sh -c "npm install && npm run dev"
-    expose:
-      - 3000
-    ports: 
-    - 3000:3000
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
-    
-    environment:
-      AUTHENTICATION_BASE_URL: ${AUTHENTICATION_BASE_URL}
-      NEXT_PUBLIC_AUTHENTICATION_BASE_URL: ${NEXT_PUBLIC_AUTHENTICATION_BASE_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-      NEXT_PUBLIC_NODE_ENV: ${NEXT_PUBLIC_NODE_ENV}
-      NEXTAUTH_URL_INTERNAL: ${NEXTAUTH_URL_INTERNAL}
-      NEXT_PUBLIC_AUTHORIZATION_BASE_URL: ${NEXT_PUBLIC_AUTHORIZATION_BASE_URL}
-      NEXT_PUBLIC_PRODUCT_BASE_URL: ${NEXT_PUBLIC_PRODUCT_BASE_URL}
-  authenticationService:
-      image: node:18-alpine
-      container_name: auth-service
-      command: sh -c "npm install && npm run start"
-      expose:
-      - 4000
-      ports:
-      - 4000:4000
-      working_dir: /authenticationService
-      volumes: 
-      - ./auth-service:/authenticationService
-      
-      environment:
-        AUTHENTICATION_SERVICE_PORT: 4000
-        NODE_ENV: ${NODE_ENV}
-        DATABASE_URL: ${DATABASE_URL}
-        SALT_ROUND: ${SALT_ROUND}
-        JWT_SECRET: ${JWT_SECRET}
-  authorizationService:
-      image: node:18-alpine
-      container_name: authorize-service
-      command: sh -c "npm install && npm run start"
-      expose:
-      - 5000
-      ports:
-      - 5000:5000
-      working_dir: /authorizationService
-      volumes: 
-      - ./authorization-service:/authorizationService
-      
-      environment:
-        PORT: 5000
-        NODE_ENV: ${NODE_ENV}
-        DATABASE_URL: ${DATABASE_URL}
-        SALT_ROUND: ${SALT_ROUND}
-        JWT_SECRET: ${JWT_SECRET}
-  
   product-managemant:
       image: node:18-alpine
       container_name: productManagement
@@ -71,25 +13,6 @@ services:
       
       environment:
         PORT: 4500
-        NODE_ENV: ${NODE_ENV}
-        DATABASE_URL: ${DATABASE_URL}
-        SALT_ROUND: ${SALT_ROUND}
-        JWT_SECRET: ${JWT_SECRET}
-
-  order-managemant:
-      image: node:18-alpine
-      container_name: orderManagement
-      command: sh -c "npm install && npm run start"
-      expose:
-      - 3500
-      ports:
-      - 3500:3500
-      working_dir: /orderManagement
-      volumes: 
-      - ./order-management:/orderManagement
-      
-      environment:
-        PORT: 3500
         NODE_ENV: ${NODE_ENV}
         DATABASE_URL: ${DATABASE_URL}
         SALT_ROUND: ${SALT_ROUND}
