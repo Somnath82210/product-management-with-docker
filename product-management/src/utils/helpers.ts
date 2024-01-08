@@ -1,3 +1,4 @@
+import momentTimeZone from 'moment-timezone';
 export function stringToBool(data:string){
     if(data==='true' || data ==='available' && typeof data==='string'){
         console.log("true data")
@@ -26,3 +27,11 @@ export function findSimilarValues(data:any) {
    let newSet = [... new Set(newArr)]
    return newSet
   }
+
+  export function localDateChanger(date: any) {
+    if (typeof date === 'undefined') {
+      return date;
+    }
+const currentTimeZone = momentTimeZone.tz(date, 'Asia/Kolkata')
+return currentTimeZone.format('YYYY-MM-DD HH:mm:ss');
+}
